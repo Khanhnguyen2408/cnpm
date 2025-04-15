@@ -5,9 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_app/data/model/song.dart';
+import 'package:music_app/ui/discovery/favorite_manager.dart';
 import 'package:music_app/ui/now_playing/audio_player_manager.dart';
-
-List<Song> _favoriteSongs = [];
 class NowPlaying extends StatelessWidget {
   const NowPlaying({super.key, required this.playingSong, required this.songs});
   final Song playingSong;
@@ -55,6 +54,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     _audioPlayerManager.init();
     _selectedItemIndex = widget.songs.indexOf(widget.playingSong);
     _loopMode = LoopMode.off;
+    _isFavorite=FavoriteManager().isFavorite(_song);
   }
 
   @override
@@ -141,7 +141,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
                         onPressed: () {
                           _setFavorite();
                         },
-                        icon: Icon(Icons.favorite_outline),
+                        icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
                         color: _getFavoriteColor(),
                       ),
                     ],
@@ -270,6 +270,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     _imageAnimationController.forward(from: _currentAnimationPosition);
     setState(() {
       _song = nextSong;
+      _isFavorite = FavoriteManager().isFavorite(_song);
     });
   }
   void setPrevSong(){
@@ -291,6 +292,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     _imageAnimationController.forward(from: _currentAnimationPosition);
     setState(() {
       _song = nextSong;
+      _isFavorite = FavoriteManager().isFavorite(_song);
     });
   }
 
@@ -299,16 +301,17 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     return _isFavorite ? Colors.red : Colors.grey;
   }
 
-  void _setFavorite(){
-    setState(() {
-      _isFavorite = !_isFavorite;
-      if(_isFavorite){
-        _favoriteSongs.add(_song);
-      }else{
-        _favoriteSongs.removeWhere((song) => song.id==_song.id);
-      }
-    });
-  }
+ void _setFavorite() {
+  setState(() {
+    _isFavorite = !_isFavorite;
+    if (_isFavorite) {
+      FavoriteManager().addSong(_song);
+    } else {
+      FavoriteManager().removeSong(_song);
+    }
+  });
+}
+
   //
   void _setShuffle(){
     setState(() {

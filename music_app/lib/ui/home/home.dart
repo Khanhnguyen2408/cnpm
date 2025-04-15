@@ -5,6 +5,7 @@ import 'package:music_app/ui/discovery/discovery.dart';
 import 'package:music_app/ui/home/viewmodel.dart';
 import 'package:music_app/ui/now_playing/audio_player_manager.dart';
 import 'package:music_app/ui/now_playing/playing.dart';
+import 'package:music_app/ui/search/searchtab.dart';
 import 'package:music_app/ui/user/user.dart';
 
 class MusicApp extends StatelessWidget {
@@ -33,7 +34,8 @@ class MusicHomePage extends StatefulWidget {
 class _MusicHomePage extends State<MusicHomePage> {
   final List<Widget> _tabs = [
     HomeTab(),
-    DiscoveryTab(favoriteSongs: [],),
+    FavoriteAlbumPage(),
+    SearchTab(),
     UserTab(),
   ];
   @override
@@ -46,6 +48,7 @@ class _MusicHomePage extends State<MusicHomePage> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.album), label: 'Album'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
           ],
         ),

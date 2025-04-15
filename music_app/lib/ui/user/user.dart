@@ -68,7 +68,7 @@ class UserTab extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DiscoveryTab(favoriteSongs: []),
+                          builder: (context) => FavoriteAlbumPage(),
                         ),
                       );
                     },
