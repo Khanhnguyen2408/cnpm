@@ -34,7 +34,6 @@ class MusicHomePage extends StatefulWidget {
 class _MusicHomePage extends State<MusicHomePage> {
   final List<Widget> _tabs = [
     HomeTab(),
-    FavoriteAlbumPage(),
     SearchTab(),
     UserTab(),
   ];
@@ -47,7 +46,6 @@ class _MusicHomePage extends State<MusicHomePage> {
           backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.album), label: 'Album'),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
           ],
